@@ -1,9 +1,11 @@
 import { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import { Polaroid } from '.';
+import { Photo } from '.';
+import { PhotoBrand } from '../helpers/constants';
 
 export function Form(): ReactElement {
   const [img, setImg] = useState(null);
+  const [brand] = useState(PhotoBrand.Polaroid);
 
   const onInput = (e: any) => {
     const reader = new FileReader();
@@ -16,7 +18,7 @@ export function Form(): ReactElement {
   return (
     <form>
       <Input type='file' accept='image/png, image/jpeg' onInput={onInput} />
-      <Polaroid img={img} />
+      <Photo img={img} brand={brand} />
     </form>
   );
 }
