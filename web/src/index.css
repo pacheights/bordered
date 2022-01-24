@@ -1,4 +1,35 @@
+@import 'https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css';
+
 html,
 body {
   font-family: sans-serif;
+}
+
+#form-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 15px;
+}
+
+@media (max-width: 760px) {
+  #form-container {
+    display: block;
+  }
+}
+
+.label {
+  color: #4b5d5f;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  height: auto;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
 }

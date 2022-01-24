@@ -30,7 +30,6 @@ const PhotoContainer = styled.div<PhotoContainerStyleProps>`
   padding-top: ${(props) => BrandDimensions[props.brand].container.borderTop}in;
   display: flex;
   justify-content: center;
-  margin: 15px auto;
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid lightgray;
 `;
