@@ -1,4 +1,4 @@
-import { Form, Title } from './components';
+import { Form } from './components';
 import styled from 'styled-components';
 
 const App = () => {
