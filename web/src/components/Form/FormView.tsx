@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 import styled from 'styled-components';
 import { Photo, Title } from '..';
-import { PhotoBrand } from '../../helpers/constants';
 
 interface FormViewProps {
   onPhotoUpload: (e: any) => void;
@@ -67,7 +66,7 @@ export function FormView({ onPhotoUpload, img }: FormViewProps): ReactElement {
         </div>
       </form>
       <PhotoContainer>
-        <Photo img={img} brand={PhotoBrand.Polaroid} />
+        <Photo img={img} />
       </PhotoContainer>
     </div>
   );

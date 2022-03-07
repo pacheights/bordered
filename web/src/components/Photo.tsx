@@ -1,33 +1,26 @@
 import { ReactElement } from 'react';
 import styled from 'styled-components';
-import { BrandDimensions, PhotoBrand } from '../helpers/constants';
 
 interface Props {
   img: string | null;
-  brand: PhotoBrand;
 }
 
-export function Photo({ img, brand }: Props): ReactElement {
+export function Photo({ img }: Props): ReactElement {
   return (
-    <PhotoContainer brand={brand}>
-      <Picture img={img} brand={brand} />
+    <PhotoContainer>
+      <Picture img={img} />
     </PhotoContainer>
   );
 }
 
-type PhotoContainerStyleProps = {
-  brand: PhotoBrand;
-};
-
 type PictureStyleProps = {
   img: string | null;
-  brand: PhotoBrand;
 };
 
-const PhotoContainer = styled.div<PhotoContainerStyleProps>`
-  height: ${(props) => BrandDimensions[props.brand].container.height}in;
-  width: ${(props) => BrandDimensions[props.brand].container.width}in;
-  padding-top: ${(props) => BrandDimensions[props.brand].container.borderTop}in;
+const PhotoContainer = styled.div`
+  height: 3.4in;
+  width: 2.8in;
+  padding-top: 0.2in;
   display: flex;
   justify-content: center;
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
@@ -35,8 +28,8 @@ const PhotoContainer = styled.div<PhotoContainerStyleProps>`
 `;
 
 const Picture = styled.div<PictureStyleProps>`
-  height: ${(props) => BrandDimensions[props.brand].picture.height}in;
-  width: ${(props) => BrandDimensions[props.brand].picture.width}in;
+  height: 2.4in;
+  width: 2.4;
   background-color: darkgray;
   background-image: url('${(props) => props.img || ''}');
   background-size: cover;
