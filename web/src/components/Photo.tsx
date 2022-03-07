@@ -18,9 +18,10 @@ type PictureStyleProps = {
 };
 
 const PhotoContainer = styled.div`
-  height: 3.4in;
-  width: 2.8in;
-  padding-top: 0.2in;
+  height: 3.9in;
+  width: 3.4in;
+  padding-top: 0.28in;
+
   display: flex;
   justify-content: center;
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
@@ -28,8 +29,8 @@ const PhotoContainer = styled.div`
 `;
 
 const Picture = styled.div<PictureStyleProps>`
-  height: 2.4in;
-  width: 2.4;
+  height: 2.95in;
+  width: 2.95in;
   background-color: darkgray;
   background-image: url('${(props) => props.img || ''}');
   background-size: cover;

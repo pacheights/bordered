@@ -11,64 +11,59 @@ export function FormView({ onPhotoUpload, img }: FormViewProps): ReactElement {
   const today = new Date().toISOString().split('T')[0];
 
   return (
-    <div id='form-container'>
-      <form>
-        <Title />
-        <label className='label' htmlFor='to'>
-          To
-        </label>
-        <Input
-          id='to'
-          name='to'
-          className='input'
-          type='text'
-          placeholder='First Last'
-        />
-        <label className='label' htmlFor='from'>
-          From
-        </label>
-        <Input
-          id='from'
-          name='from'
-          className='input'
-          type='text'
-          placeholder='First Last'
-        />
-        <label className='label' htmlFor='arrival'>
-          Arrival Date
-        </label>
-        <div>
+    <>
+      <Title />
+      <div id='form-container'>
+        <PhotoContainer>
+          <Photo img={img} />
+        </PhotoContainer>
+        <Form>
           <Input
-            id='arrival'
-            name='arrival'
+            id='to'
+            name='to'
             className='input'
-            type='date'
-            min={today}
+            type='text'
+            placeholder='To'
           />
-        </div>
+          <Input
+            id='from'
+            name='from'
+            className='input'
+            type='text'
+            placeholder='From'
+          />
 
-        <div className='file'>
-          <label className='file-label'>
-            <input
-              className='file-input'
-              type='file'
-              name='photo'
-              accept='image/png, image/jpeg'
-              onInput={onPhotoUpload}
+          <div>
+            <Input
+              id='arrival'
+              name='arrival'
+              className='input'
+              type='date'
+              min={today}
+              placeholder='Arrival Date'
             />
-            <span className='file-cta'>
-              <span className='file-icon'>
-                <i className='fas fa-upload'></i>
+          </div>
+
+          <div className='file'>
+            <label className='file-label'>
+              <input
+                className='file-input'
+                type='file'
+                name='photo'
+                accept='image/png, image/jpeg'
+                onInput={onPhotoUpload}
+              />
+              <span className='file-cta'>
+                <span className='file-icon'>
+                  <i className='fas fa-upload'></i>
+                </span>
+                <span className='file-label'>Upload photo</span>
               </span>
-              <span className='file-label'>Upload photo</span>
-            </span>
-          </label>
-        </div>
-      </form>
-      <PhotoContainer>
-        <Photo img={img} />
-      </PhotoContainer>
-    </div>
+            </label>
+          </div>
+        </Form>
+      </div>
+    </>
   );
 }
 
@@ -77,5 +72,10 @@ const Input = styled.input`
 `;
 
 const PhotoContainer = styled.div`
-  margin-top: 90px;
+  margin-right: 24px;
+  margin-bottom: 24px;
+`;
+
+const Form = styled.form`
+  margin-bottom: 24px;
 `;
