@@ -10,16 +10,25 @@ body {
   margin-top: 32px;
 }
 
-@media (max-width: 760px) {
-  #form-container {
-    display: block;
-  }
+#form {
+  max-width: 40%;
 }
 
 .label {
   color: #4b5d5f;
 }
 
+@media (max-width: 760px) {
+  #form-container {
+    display: block;
+  }
+
+  #form {
+    max-width: 3.4in;
+  }
+}
+
+/* Date picker (deprecated for now)  */
 input[type='date']::-webkit-calendar-picker-indicator {
   background: transparent;
   bottom: 0;

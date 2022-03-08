@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import styled from 'styled-components';
-import { Photo, Title } from '..';
+import { Photo, StateSelector, Title } from '..';
 
 interface FormViewProps {
   onPhotoUpload: (e: any) => void;
@@ -8,43 +8,13 @@ interface FormViewProps {
 }
 
 export function FormView({ onPhotoUpload, img }: FormViewProps): ReactElement {
-  const today = new Date().toISOString().split('T')[0];
-
   return (
     <>
       <Title />
       <div id='form-container'>
         <PhotoContainer>
           <Photo img={img} />
-        </PhotoContainer>
-        <Form>
-          <Input
-            id='to'
-            name='to'
-            className='input'
-            type='text'
-            placeholder='To'
-          />
-          <Input
-            id='from'
-            name='from'
-            className='input'
-            type='text'
-            placeholder='From'
-          />
-
-          <div>
-            <Input
-              id='arrival'
-              name='arrival'
-              className='input'
-              type='date'
-              min={today}
-              placeholder='Arrival Date'
-            />
-          </div>
-
-          <div className='file'>
+          <UploadContainer className='file'>
             <label className='file-label'>
               <input
                 className='file-input'
@@ -60,15 +30,54 @@ export function FormView({ onPhotoUpload, img }: FormViewProps): ReactElement {
                 <span className='file-label'>Upload photo</span>
               </span>
             </label>
-          </div>
+          </UploadContainer>
+        </PhotoContainer>
+
+        <Form id='form'>
+          <Input name='to' className='input' type='text' placeholder='To' />
+          <Input name='from' className='input' type='text' placeholder='From' />
+          <TextArea
+            className='textarea'
+            placeholder='Personal note (handwritten)'
+            maxLength={100}
+            rows={3}
+          />
+          <Input
+            name='address1'
+            className='input'
+            type='text'
+            placeholder='Recipient Address'
+          />
+          <Input
+            name='address2'
+            className='input'
+            type='text'
+            placeholder='Unit, Apt, Suite'
+          />
+          <Input name='city' className='input' type='text' placeholder='City' />
+          <GeoContainer>
+            <StateSelector />
+            <ZipInput
+              name='zip'
+              className='input'
+              type='text'
+              placeholder='Zip Code'
+              maxLength={5}
+            />
+          </GeoContainer>
         </Form>
       </div>
     </>
   );
 }
 
+const InputStyling = `margin-bottom: 15px;`;
+
 const Input = styled.input`
-  margin-bottom: 15px;
+  ${InputStyling}
+`;
+const TextArea = styled.textarea`
+  ${InputStyling}
 `;
 
 const PhotoContainer = styled.div`
@@ -78,4 +87,18 @@ const PhotoContainer = styled.div`
 
 const Form = styled.form`
   margin-bottom: 24px;
+`;
+
+const UploadContainer = styled.div`
+  margin-top: 12px;
+`;
+
+const GeoContainer = styled.div`
+  display: flex;
+`;
+
+const ZipInput = styled.input`
+  ${InputStyling};
+  width: 100px;
+  margin-left: 12px;
 `;
