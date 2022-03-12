@@ -1,36 +1,26 @@
 import { ReactElement } from 'react';
 import styled from 'styled-components';
-import { Photo, StateSelector, Title } from '..';
+import { NumPhotos, Photo, StateSelector, Title } from '..';
 
 interface FormViewProps {
   onPhotoUpload: (e: any) => void;
   img: any;
+  setNum: (num: number) => void;
+  num: number;
 }
 
-export function FormView({ onPhotoUpload, img }: FormViewProps): ReactElement {
+export function FormView({
+  onPhotoUpload,
+  img,
+  setNum,
+  num,
+}: FormViewProps): ReactElement {
   return (
     <>
       <Title />
       <div id='form-container'>
         <PhotoContainer>
-          <Photo img={img} />
-          <UploadContainer className='file'>
-            <label className='file-label'>
-              <input
-                className='file-input'
-                type='file'
-                name='photo'
-                accept='image/png, image/jpeg'
-                onInput={onPhotoUpload}
-              />
-              <span className='file-cta'>
-                <span className='file-icon'>
-                  <i className='fas fa-upload'></i>
-                </span>
-                <span className='file-label'>Upload photo</span>
-              </span>
-            </label>
-          </UploadContainer>
+          <Photo img={img} onPhotoUpload={onPhotoUpload} />
         </PhotoContainer>
 
         <Form id='form'>
@@ -87,10 +77,6 @@ const PhotoContainer = styled.div`
 
 const Form = styled.form`
   margin-bottom: 24px;
-`;
-
-const UploadContainer = styled.div`
-  margin-top: 12px;
 `;
 
 const GeoContainer = styled.div`
