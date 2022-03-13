@@ -1,15 +1,19 @@
 import { ReactElement, useState } from 'react';
 import { FormView } from './FormView';
 
-export function Form(): ReactElement {
-  const [img, setImg] = useState(null);
-  const [num, setNum] = useState(1); // TODO refactor
+export type Image = string | null;
 
-  const onPhotoUpload = (e: any) => {
+export function Form(): ReactElement {
+  const [imgs, setImgs] = useState([null] as Image[]);
+
+  const onPhotoUpload = (e: any, i: number) => {
     try {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        setImg(e.target.result);
+        const img = e.target.result;
+        const newImgs = [...imgs];
+        newImgs[i] = img;
+        setImgs(newImgs);
       };
       reader.readAsDataURL(e.target.files[0]);
     } catch (e) {
@@ -17,12 +21,17 @@ export function Form(): ReactElement {
     }
   };
 
+  const addPhoto = () => setImgs((imgs) => [...imgs, null]);
+
+  const deletePhoto = (i: number) =>
+    setImgs((imgs) => [...imgs.slice(0, i), ...imgs.slice(i + 1)]);
+
   return (
     <FormView
       onPhotoUpload={onPhotoUpload}
-      img={img}
-      setNum={setNum}
-      num={num}
+      imgs={imgs}
+      addPhoto={addPhoto}
+      deletePhoto={deletePhoto}
     />
   );
 }

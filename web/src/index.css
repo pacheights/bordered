@@ -18,13 +18,53 @@ body {
   color: #4b5d5f;
 }
 
+.photo-container {
+  margin-left: 32px;
+}
+
+.add-photo-btn {
+  margin-left: 12px;
+  border-radius: 50%;
+  color: #dbdbdb;
+}
+
+.add-photo-btn:hover {
+  color: #363636;
+}
+
 @media (max-width: 760px) {
   #form-container {
-    display: block;
+    flex-direction: column;
+  }
+
+  .photos-container {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .photo-container {
+    margin-left: 0;
+    order: 1;
+  }
+
+  .photo-container:nth-child(1) {
+    margin-bottom: 16px;
+  }
+
+  .add-photo-btn {
+    order: 2;
+    margin: 0 auto;
   }
 
   #form {
     max-width: 3.4in;
+    order: 3;
+  }
+}
+
+@media (max-width: 420px) {
+  #form-container {
+    align-items: center;
   }
 }
 

@@ -1,40 +1,64 @@
 import { ReactElement } from 'react';
 import styled from 'styled-components';
+import { Image } from '.';
 
 interface Props {
   onPhotoUpload: (e: any) => void;
-  img: string | null;
+  img: Image;
+  i: number;
+  onClickX: (i: number) => void;
 }
 
-export function Photo({ img, onPhotoUpload }: Props): ReactElement {
+export function Photo({
+  img,
+  onPhotoUpload,
+  i,
+  onClickX,
+}: Props): ReactElement {
+  const renderXbutton = i > 0;
+  const handleDelete = () => onClickX(i);
   return (
-    <PhotoContainer>
-      <Picture img={img}>
-        <UploadContainer className='file' img={img}>
-          <Label className='file-label' img={img}>
-            <Input
-              className='file-input'
-              type='file'
-              name='photo'
-              accept='image/png, image/jpeg'
-              onInput={onPhotoUpload}
-            />
-            <span className='file-cta'>
-              <span className='file-icon'>
-                <i className='fas fa-upload'></i>
+    <Container i={i}>
+      <PhotoContainer>
+        <Picture img={img}>
+          <UploadContainer className='file' img={img}>
+            <Label className='file-label' img={img}>
+              <Input
+                className='file-input'
+                type='file'
+                name='photo'
+                accept='image/png, image/jpeg'
+                onInput={onPhotoUpload}
+              />
+              <span className='file-cta'>
+                <span className='file-icon'>
+                  <i className='fas fa-upload'></i>
+                </span>
+                <span className='file-label'>Upload photo</span>
               </span>
-              <span className='file-label'>Upload photo</span>
-            </span>
-          </Label>
-        </UploadContainer>
-      </Picture>
-    </PhotoContainer>
+            </Label>
+          </UploadContainer>
+        </Picture>
+      </PhotoContainer>
+      {renderXbutton && (
+        <XButton className='delete' onClick={handleDelete}></XButton>
+      )}
+    </Container>
   );
 }
 
 type PictureStyleProps = {
-  img: string | null;
+  img: Image;
 };
+
+const Container = styled.div<{ i: number }>`
+  margin-right: ${(props) => (props.i ? '-22px' : 0)};
+  display: flex;
+`;
+
+const XButton = styled.button`
+  margin-left: 4px;
+`;
 
 const PhotoContainer = styled.div`
   height: 3.9in;

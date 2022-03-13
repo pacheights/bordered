@@ -1,28 +1,25 @@
 import { ReactElement } from 'react';
 import styled from 'styled-components';
-import { NumPhotos, Photo, StateSelector, Title } from '..';
+import { Photo, StateSelector, Title, Image } from '..';
 
 interface FormViewProps {
-  onPhotoUpload: (e: any) => void;
-  img: any;
-  setNum: (num: number) => void;
-  num: number;
+  onPhotoUpload: (e: any, i: number) => void;
+  addPhoto: () => void;
+  imgs: Image[];
+  deletePhoto: (i: number) => void;
 }
 
 export function FormView({
   onPhotoUpload,
-  img,
-  setNum,
-  num,
+  imgs,
+  addPhoto,
+  deletePhoto,
 }: FormViewProps): ReactElement {
+  const renderAddPhotoBtn = imgs.length < 2;
   return (
     <>
       <Title />
       <div id='form-container'>
-        <PhotoContainer>
-          <Photo img={img} onPhotoUpload={onPhotoUpload} />
-        </PhotoContainer>
-
         <Form id='form'>
           <Input name='to' className='input' type='text' placeholder='To' />
           <Input name='from' className='input' type='text' placeholder='From' />
@@ -56,6 +53,27 @@ export function FormView({
             />
           </GeoContainer>
         </Form>
+
+        <Photos className='photos-container'>
+          {imgs.map((img, i) => (
+            <div className='photo-container'>
+              <Photo
+                img={img}
+                onPhotoUpload={(e) => onPhotoUpload(e, i)}
+                i={i}
+                onClickX={deletePhoto}
+              />
+            </div>
+          ))}
+
+          {renderAddPhotoBtn && (
+            <button className='button  add-photo-btn' onClick={addPhoto}>
+              <span className='icon is-small'>
+                <i className='fas fa-plus'></i>
+              </span>
+            </button>
+          )}
+        </Photos>
       </div>
     </>
   );
@@ -66,12 +84,16 @@ const InputStyling = `margin-bottom: 15px;`;
 const Input = styled.input`
   ${InputStyling}
 `;
+
 const TextArea = styled.textarea`
   ${InputStyling}
 `;
 
-const PhotoContainer = styled.div`
-  margin-right: 24px;
+const Photos = styled.div`
+  height: fit-content;
+  width: fit-content;
+  display: flex;
+  align-items: center;
   margin-bottom: 24px;
 `;
 
