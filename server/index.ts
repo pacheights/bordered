@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+// endpoints
+
+// serving frontend
 app.use(express.static(path.join(__dirname, '../web', 'build')));
 app.use(express.static('public'));
 
