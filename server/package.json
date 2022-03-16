@@ -12,6 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.3"
+    "@vscode/sqlite3": "^5.0.7",
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
+    "knex": "^1.0.4",
+    "sqlite3": "^5.0.2"
   }
 }
