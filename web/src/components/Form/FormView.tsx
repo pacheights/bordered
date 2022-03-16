@@ -1,3 +1,4 @@
+import { PaymentElement } from '@stripe/react-stripe-js';
 import { ReactElement } from 'react';
 import styled from 'styled-components';
 import { Photo, StateSelector, Title, Image } from '..';
@@ -52,6 +53,7 @@ export function FormView({
               maxLength={5}
             />
           </GeoContainer>
+          <PaymentElement id='payment-element' />
         </Form>
 
         <Photos className='photos-container'>
