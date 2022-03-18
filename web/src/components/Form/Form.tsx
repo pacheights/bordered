@@ -26,12 +26,18 @@ export function Form(): ReactElement {
   const deletePhoto = (i: number) =>
     setImgs((imgs) => [...imgs.slice(0, i), ...imgs.slice(i + 1)]);
 
+  const onFormSubmit = (e: any) => {
+    e?.preventDefault();
+    console.log(e);
+  };
+
   return (
     <FormView
       onPhotoUpload={onPhotoUpload}
       imgs={imgs}
       addPhoto={addPhoto}
       deletePhoto={deletePhoto}
+      onFormSubmit={onFormSubmit}
     />
   );
 }

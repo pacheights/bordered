@@ -1,9 +1,15 @@
+import { sk } from './stripe';
+
 const express = require('express');
 const app = express();
 const path = require('path');
 const db = require('./db/orders');
 const bodyParser = require('body-parser');
-const stripe = require('stripe')('');
+const stripe = require('stripe')(sk);
+
+// remove this
+const cors = require('cors');
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -15,7 +21,9 @@ app.post('/create-payment-intent', async (req, res) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: 700,
       currency: 'usd',
-      payment_method_types: ['card'],
+      automatic_payment_methods: {
+        enabled: true,
+      },
     });
 
     res.status(201).json({
@@ -29,12 +37,9 @@ app.post('/create-payment-intent', async (req, res) => {
 
 app.post('/order', async (req, res) => {
   try {
-    const results = await db.insertOrder({
-      to: 'Sophia',
-      from: 'Pearson',
-      note: "You're the cutest",
-    });
-    res.status(201).json({ results });
+    const body = req.body;
+    console.log(body);
+    res.status(201).json({});
   } catch (e) {
     console.log(e);
     res.status(500).json({ error: e });

@@ -3,15 +3,14 @@ import styled from 'styled-components';
 import { loadStripe } from '@stripe/stripe-js';
 import { useState, useEffect } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
+import { pk } from './stripe';
 
-const stripePromise = loadStripe(
-  'pk_test_51KRtXcCjfyUXQfclOmwkWcd25DdkR5eojCp5KvbDqtl9ZIug5KWKIe0RDRSflXO6FLSRekmxYuU6O4YPXNVWHQNo00tyMh8h2L'
-);
+const stripePromise = loadStripe(pk);
 
 const App = () => {
   const [clientSecret, setClientSecret] = useState('');
   const createPaymentIntent = async () => {
-    const res = await fetch('/create-payment-intent', {
+    const res = await fetch('http://localhost:3000/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({}),

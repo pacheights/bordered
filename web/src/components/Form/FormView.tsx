@@ -8,6 +8,7 @@ interface FormViewProps {
   addPhoto: () => void;
   imgs: Image[];
   deletePhoto: (i: number) => void;
+  onFormSubmit: (e: any) => void;
 }
 
 export function FormView({
@@ -15,14 +16,21 @@ export function FormView({
   imgs,
   addPhoto,
   deletePhoto,
+  onFormSubmit,
 }: FormViewProps): ReactElement {
   const renderAddPhotoBtn = imgs.length < 2;
   return (
     <>
       <Title />
       <div id='form-container'>
-        <Form id='form'>
-          <Input name='to' className='input' type='text' placeholder='To' />
+        <Form id='form' onSubmit={onFormSubmit}>
+          <Input
+            name='to'
+            className='input'
+            type='text'
+            placeholder='To'
+            required
+          />
           <Input name='from' className='input' type='text' placeholder='From' />
           <TextArea
             className='textarea'
@@ -35,6 +43,7 @@ export function FormView({
             className='input'
             type='text'
             placeholder='Recipient Address'
+            required
           />
           <Input
             name='address2'
@@ -51,14 +60,16 @@ export function FormView({
               type='text'
               placeholder='Zip Code'
               maxLength={5}
+              required
             />
           </GeoContainer>
           <PaymentElement id='payment-element' />
+          <input className='button' type='submit' value='Submit input' />
         </Form>
 
         <Photos className='photos-container'>
           {imgs.map((img, i) => (
-            <div className='photo-container'>
+            <div className='photo-container' key={i}>
               <Photo
                 img={img}
                 onPhotoUpload={(e) => onPhotoUpload(e, i)}
