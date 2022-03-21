@@ -8,12 +8,13 @@ import { pk } from './stripe';
 const stripePromise = loadStripe(pk);
 
 const App = () => {
+  const [imgCount, setImgCount] = useState(1);
   const [clientSecret, setClientSecret] = useState('');
   const createPaymentIntent = async () => {
     const res = await fetch('http://localhost:3000/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({}),
+      body: JSON.stringify({ imgCount }),
     });
     const data = await res.json();
     setClientSecret(data.clientSecret);
@@ -21,7 +22,7 @@ const App = () => {
 
   useEffect(() => {
     createPaymentIntent();
-  }, []);
+  }, [imgCount]);
 
   return (
     <Container className='App'>
@@ -30,7 +31,7 @@ const App = () => {
           options={{ clientSecret, appearance: { theme: 'stripe' } }}
           stripe={stripePromise}
         >
-          <Form />
+          <Form setImgCount={setImgCount} />
         </Elements>
       )}
     </Container>

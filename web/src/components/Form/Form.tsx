@@ -1,11 +1,15 @@
 import { useStripe, useElements } from '@stripe/react-stripe-js';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { createFormData } from '../../utils';
 import { FormView } from './FormView';
 
 export type Image = string | null;
 
-export function Form(): ReactElement {
+interface Props {
+  setImgCount: (num: number) => void;
+}
+
+export function Form({ setImgCount }: Props): ReactElement {
   const [imgs, setImgs] = useState([null] as Image[]);
   const stripe = useStripe();
   const elements = useElements();
@@ -26,6 +30,10 @@ export function Form(): ReactElement {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    setImgCount(imgs.length);
+  }, [imgs.length]);
 
   const addPhoto = () => setImgs((imgs) => [...imgs, null]);
 
@@ -62,13 +70,10 @@ export function Form(): ReactElement {
     const form = e.target as HTMLFormElement;
     const fd = await createFormData(form, imgs);
 
-    const formObj = {};
-    //@ts-ignore
-    for (let key of fd.keys()) {
-      //@ts-ignore
-      formObj[key] = fd.get(key);
-    }
-    console.log(formObj);
+    fetch('http://localhost:3000/order', {
+      method: 'post',
+      body: fd,
+    });
   };
 
   return (

@@ -19,12 +19,11 @@ app.use(bodyParser.json());
 app.post('/create-payment-intent', async (req: Request, res: Response) => {
   // Create a PaymentIntent with the order amount and currency
   try {
+    const { imgCount } = req.body;
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: 700,
+      amount: imgCount.length >= 2 ? 700 : 500,
       currency: 'usd',
-      // automatic_payment_methods: {
-      //   enabled: true,
-      // },
+      // automatic_payment_methods: { enabled: true },
       payment_method_types: ['card'],
     });
 
@@ -39,8 +38,8 @@ app.post('/create-payment-intent', async (req: Request, res: Response) => {
 
 app.post('/order', async (req: Request, res: Response) => {
   try {
-    const body = req.body;
-    console.log(body);
+    const { to, from, note } = req.body;
+    console.log(to, from, note);
     res.status(201).json({});
   } catch (e) {
     console.log(e);
