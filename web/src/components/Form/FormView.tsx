@@ -33,6 +33,7 @@ export function FormView({
           />
           <Input name='from' className='input' type='text' placeholder='From' />
           <TextArea
+            name='note'
             className='textarea'
             placeholder='Personal note (handwritten)'
             maxLength={100}

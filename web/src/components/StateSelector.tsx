@@ -4,7 +4,7 @@ interface Props {
 
 export const StateSelector = ({ onSelect }: Props) => (
   <div className='select'>
-    <select onSelect={onSelect}>
+    <select onSelect={onSelect} name='state'>
       <option value='AL'>AL</option>
       <option value='AK'>AK</option>
       <option value='AR'>AR</option>
