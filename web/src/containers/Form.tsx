@@ -1,7 +1,13 @@
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { ReactElement, useEffect, useState } from 'react';
-import { convertFormToReqBody } from '../../utils';
-import { FormView } from './FormView';
+import {
+  convertFormToReqBody,
+  createOrder,
+  deleteBody,
+  getBody,
+  setBody,
+} from '../utils';
+import { FormView } from '../components/FormView';
 
 export type Image = string | null;
 
@@ -32,6 +38,34 @@ export function Form({ setImgCount }: Props): ReactElement {
   };
 
   useEffect(() => {
+    if (!stripe) return;
+
+    const clientSecret = new URLSearchParams(window.location.search).get(
+      'payment_intent_client_secret'
+    );
+
+    if (!clientSecret) return;
+
+    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+      switch (paymentIntent?.status) {
+        case 'succeeded':
+          createOrder(getBody()).then(() => deleteBody());
+          setMessage('Payment succeeded!');
+          break;
+        case 'processing':
+          setMessage('Your payment is processing.');
+          break;
+        case 'requires_payment_method':
+          setMessage('Your payment was not successful, please try again.');
+          break;
+        default:
+          setMessage('Something went wrong.');
+          break;
+      }
+    });
+  }, [stripe]);
+
+  useEffect(() => {
     setImgCount(imgs.length);
   }, [imgs.length]);
 
@@ -41,40 +75,32 @@ export function Form({ setImgCount }: Props): ReactElement {
     setImgs((imgs) => [...imgs.slice(0, i), ...imgs.slice(i + 1)]);
 
   const handlePayment = async () => {
-    if (!stripe || !elements) {
-      return;
-    }
-
+    if (!stripe || !elements) return;
     setLoading(true);
 
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:3000',
+        return_url: 'http://localhost:3001',
       },
     });
 
-    if (error.type === 'card_error' || error.type === 'validation_error') {
-      setMessage(error.message as string);
-    } else {
-      setMessage('An unexpected error occured.');
-    }
-
     setLoading(false);
+    return Promise.reject(error?.message || 'An unexpected error occured.');
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
-    const form = e.target as HTMLFormElement;
-    const body = JSON.stringify(await convertFormToReqBody(form, imgs));
-
-    fetch('http://localhost:3000/order', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body,
-    });
+    try {
+      const form = e.target as HTMLFormElement;
+      const body = convertFormToReqBody(form, imgs);
+      setBody(body);
+      await handlePayment();
+    } catch (e: any) {
+      console.log(e);
+      setMessage(e as string);
+    }
   };
 
   return (

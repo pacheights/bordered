@@ -1,7 +1,7 @@
 import { PaymentElement } from '@stripe/react-stripe-js';
 import { ReactElement } from 'react';
 import styled from 'styled-components';
-import { Photo, StateSelector, Title, Image } from '..';
+import { Photo, StateSelector, Title, Image } from '.';
 
 interface FormViewProps {
   onPhotoUpload: (e: any, i: number) => void;
