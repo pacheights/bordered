@@ -1,6 +1,6 @@
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { ReactElement, useEffect, useState } from 'react';
-import { createFormData } from '../../utils';
+import { convertFormToReqBody } from '../../utils';
 import { FormView } from './FormView';
 
 export type Image = string | null;
@@ -68,11 +68,12 @@ export function Form({ setImgCount }: Props): ReactElement {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
-    const fd = await createFormData(form, imgs);
+    const body = JSON.stringify(await convertFormToReqBody(form, imgs));
 
     fetch('http://localhost:3000/order', {
       method: 'post',
-      body: fd,
+      headers: { 'Content-Type': 'application/json' },
+      body,
     });
   };
 

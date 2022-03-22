@@ -21,7 +21,7 @@ app.post('/create-payment-intent', async (req: Request, res: Response) => {
   try {
     const { imgCount } = req.body;
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: imgCount.length >= 2 ? 700 : 500,
+      amount: imgCount >= 2 ? 700 : 500,
       currency: 'usd',
       // automatic_payment_methods: { enabled: true },
       payment_method_types: ['card'],
@@ -38,8 +38,7 @@ app.post('/create-payment-intent', async (req: Request, res: Response) => {
 
 app.post('/order', async (req: Request, res: Response) => {
   try {
-    const { to, from, note } = req.body;
-    console.log(to, from, note);
+    console.log('order body', req.body);
     res.status(201).json({});
   } catch (e) {
     console.log(e);
