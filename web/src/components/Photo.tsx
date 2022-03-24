@@ -26,7 +26,7 @@ export function Photo({
   return (
     <Container i={i || 0}>
       <PhotoContainer>
-        <Picture img={img}>
+        <Picture className='picture' img={img}>
           {onPhotoUpload && (
             <UploadContainer className='file' img={img}>
               <Label className='file-label' img={img}>
@@ -82,14 +82,19 @@ const PhotoContainer = styled.div`
 const Picture = styled.div<PictureStyleProps>`
   height: 2.95in;
   width: 2.95in;
-  background-color: darkgray;
-  background-image: url('${(props) => props.img || ''}');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url('${(props) => props.img || ''}');
+  background-color: ${(props) => (props.img ? '#333333' : '#c5c5c5')};
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-blend-mode: ${(props) => (props.img ? 'lighten' : 'none')};
+  filter: ${(props) =>
+    props.img
+      ? 'saturate(70%) contrast(120%) blur(0.35px) sepia(5%) brightness(110%)'
+      : 'none'};
 `;
 
 const UploadContainer = styled.div<PictureStyleProps>`
