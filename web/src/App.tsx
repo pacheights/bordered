@@ -4,6 +4,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import { useState, useEffect } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { pk } from './stripe';
+import { endpoint } from './endpoint';
+import { PhotoWall } from './containers/PhotoWall';
 
 const stripePromise = loadStripe(pk);
 
@@ -11,7 +13,7 @@ const App = () => {
   const [imgCount, setImgCount] = useState(1);
   const [clientSecret, setClientSecret] = useState('');
   const createPaymentIntent = async () => {
-    const res = await fetch('http://localhost:3000/create-payment-intent', {
+    const res = await fetch(`${endpoint}/create-payment-intent`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ imgCount }),
@@ -32,6 +34,9 @@ const App = () => {
           stripe={stripePromise}
         >
           <Form setImgCount={setImgCount} />
+          <br />
+          <PhotoWall />
+          <br />
         </Elements>
       )}
     </Container>

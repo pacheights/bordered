@@ -1,10 +1,5 @@
 import { Image } from './components';
-
-const convertBase64ToBlob = async (b64: string) => {
-  const base64Response = await fetch(b64);
-  const blob = await base64Response.blob();
-  return blob;
-};
+import { endpoint } from './endpoint';
 
 export const convertFormToReqBody = (form: HTMLFormElement, imgs: Image[]) => {
   if (!form) return '{}';
@@ -22,8 +17,10 @@ export const convertFormToReqBody = (form: HTMLFormElement, imgs: Image[]) => {
   return JSON.stringify(body);
 };
 
-export const createOrder = async (body: string) => {
-  await fetch('http://localhost:3000/order', {
+export const createOrder = async (body: string | null) => {
+  if (!body) return;
+
+  await fetch(`${endpoint}/order`, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body,
@@ -32,8 +29,8 @@ export const createOrder = async (body: string) => {
 
 const BODY_KEY = 'body';
 
-export const getBody = () => {
-  return window.sessionStorage.getItem(BODY_KEY) || '{}';
+export const getBody = (): string | null => {
+  return window.sessionStorage.getItem(BODY_KEY);
 };
 
 export const setBody = (body: string) => {

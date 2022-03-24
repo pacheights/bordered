@@ -82,7 +82,7 @@ export function Form({ setImgCount }: Props): ReactElement {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:3001',
+        return_url: 'http://192.168.1.77:3001',
       },
     });
 

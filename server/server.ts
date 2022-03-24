@@ -1,21 +1,53 @@
 import { sk } from './stripe';
 import { Request, Response } from 'express';
+import { getAllOrders, getAllPhotos, insertOrder } from './db/orders';
 
 const express = require('express');
 const app = express();
 const path = require('path');
-const db = require('./db/orders');
 const bodyParser = require('body-parser');
 const stripe = require('stripe')(sk);
+const utils = require('./utils');
 
-// remove this
+// update this
 const cors = require('cors');
 app.use(cors());
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '5mb' }));
+app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
 
 // endpoints
+app.post('/order', async (req: Request, res: Response) => {
+  try {
+    const orderEntry = await utils.createOrderDbEntry(req.body);
+    const order = await insertOrder(orderEntry);
+    res.status(201).json({ order });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: e });
+  }
+});
+
+app.get('/orders', async (req: Request, res: Response) => {
+  try {
+    const results = await getAllOrders();
+    res.status(200).json({ results });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: e });
+  }
+});
+
+app.get('/photos', async (req: Request, res: Response) => {
+  try {
+    const photos = await getAllPhotos();
+    res.status(200).json({ photos });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: e });
+  }
+});
+
 app.post('/create-payment-intent', async (req: Request, res: Response) => {
   // Create a PaymentIntent with the order amount and currency
   try {
@@ -23,7 +55,6 @@ app.post('/create-payment-intent', async (req: Request, res: Response) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: imgCount >= 2 ? 700 : 500,
       currency: 'usd',
-      // automatic_payment_methods: { enabled: true },
       payment_method_types: ['card'],
     });
 
@@ -33,26 +64,6 @@ app.post('/create-payment-intent', async (req: Request, res: Response) => {
   } catch (e) {
     console.log(e);
     res.status(500).json({ error: 'an error occurred' });
-  }
-});
-
-app.post('/order', async (req: Request, res: Response) => {
-  try {
-    console.log('order body', req.body);
-    res.status(201).json({});
-  } catch (e) {
-    console.log(e);
-    res.status(500).json({ error: e });
-  }
-});
-
-app.get('/orders', async (req: Request, res: Response) => {
-  try {
-    const results = await db.getAllOrders();
-    res.status(200).json({ results });
-  } catch (e) {
-    console.log(e);
-    res.status(500).json({ error: e });
   }
 });
 

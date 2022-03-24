@@ -40,6 +40,18 @@ export function FormView({
             rows={3}
           />
           <Input
+            className='checkbox'
+            type='checkbox'
+            id='photoWallConsent'
+            name='photoWallConsent'
+            value='true'
+            defaultChecked
+          />
+          <label htmlFor='photoWallConsent'>
+            {' '}
+            Post my photo to the photo wall
+          </label>
+          <Input
             name='address1'
             className='input'
             type='text'
