@@ -8,6 +8,7 @@ export interface BaseOrder {
   city: string;
   state: string;
   zip: string;
+  pi: string;
 }
 
 export interface OrderRequest extends BaseOrder {

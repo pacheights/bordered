@@ -49,7 +49,7 @@ export function Form({ setImgCount }: Props): ReactElement {
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent?.status) {
         case 'succeeded':
-          createOrder(getBody()).then(() => deleteBody());
+          createOrder(getBody(), clientSecret).then(() => deleteBody());
           setMessage('Payment succeeded!');
           break;
         case 'processing':

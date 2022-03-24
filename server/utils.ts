@@ -27,6 +27,7 @@ export const getSanitizedBody = (body: OrderRequest): BaseOrder => {
     city,
     state,
     zip,
+    pi,
   } = body;
 
   to = sanitizer.sanitize.keepSpace(to);
@@ -38,6 +39,7 @@ export const getSanitizedBody = (body: OrderRequest): BaseOrder => {
   city = sanitizer.sanitize.keepSpace(city);
   state = sanitizer.sanitize.keepSpace(state);
   zip = sanitizer.sanitize.keepSpace(zip);
+  pi = `pi_${sanitizer.sanitize(pi.substring(3))}`;
 
   return {
     to,
@@ -49,6 +51,7 @@ export const getSanitizedBody = (body: OrderRequest): BaseOrder => {
     city,
     state,
     zip,
+    pi,
   };
 };
 

@@ -17,8 +17,16 @@ export const convertFormToReqBody = (form: HTMLFormElement, imgs: Image[]) => {
   return JSON.stringify(body);
 };
 
-export const createOrder = async (body: string | null) => {
-  if (!body) return;
+export const createOrder = async (
+  formBody: string | null,
+  clientSecret: string
+) => {
+  if (!formBody) return;
+
+  const body = JSON.stringify({
+    ...JSON.parse(formBody),
+    pi: clientSecret,
+  });
 
   await fetch(`${endpoint}/order`, {
     method: 'post',
