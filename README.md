@@ -1,6 +1,6 @@
-# vignette
+# bordered
 
-https://trello.com/b/5k4snZRo/vignette
+https://trello.com/b/5k4snZRo/bordered
 
 ## form fields
 

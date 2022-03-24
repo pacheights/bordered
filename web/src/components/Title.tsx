@@ -3,10 +3,10 @@ import styled from 'styled-components';
 export function Title() {
   return (
     <TitleContainer>
-      <ColorOne>Vi</ColorOne>
-      <ColorTwo>gn</ColorTwo>
-      <ColorThree>et</ColorThree>
-      <ColorFour>te</ColorFour>
+      <ColorOne>Bo</ColorOne>
+      <ColorTwo>rd</ColorTwo>
+      <ColorThree>er</ColorThree>
+      <ColorFour>ed</ColorFour>
     </TitleContainer>
   );
 }
