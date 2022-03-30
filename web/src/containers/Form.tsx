@@ -90,11 +90,10 @@ export function Form({ setImgCount }: Props): ReactElement {
     return Promise.reject(error?.message || 'An unexpected error occured.');
   };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async (fd: FormData) => {
     try {
-      const form = e.target as HTMLFormElement;
-      const body = convertFormToReqBody(form, imgs);
+      const body = convertFormToReqBody(fd, imgs);
+      console.log('body', body);
       setBody(body);
       await handlePayment();
     } catch (e: any) {

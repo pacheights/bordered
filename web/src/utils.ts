@@ -1,20 +1,24 @@
 import { Image } from './components';
 import { endpoint } from './endpoint';
 
-export const convertFormToReqBody = (form: HTMLFormElement, imgs: Image[]) => {
-  if (!form) return '{}';
-  const fd = new FormData(form);
+export const convertFormToReqBody = (fd: FormData, imgs: Image[]) => {
+  if (!fd) return '{}';
   if (typeof imgs[0] == 'string') fd.append('img1', imgs[0]);
   if (typeof imgs[1] == 'string') fd.append('img2', imgs[1]);
 
+  const body = getFormDataValues(fd);
+
+  return JSON.stringify(body);
+};
+
+export const getFormDataValues = (fd: FormData) => {
   const body = {};
   // @ts-ignore
   for (let [key, value] of fd.entries()) {
     // @ts-ignore
     body[key] = value;
   }
-
-  return JSON.stringify(body);
+  return body;
 };
 
 export const createOrder = async (

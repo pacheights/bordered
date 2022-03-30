@@ -6,6 +6,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { pk } from './stripe';
 import { endpoint } from './endpoint';
 import { PhotoWall } from './containers/PhotoWall';
+import { NavBar } from './components/NavBar';
 
 const stripePromise = loadStripe(pk);
 
@@ -33,6 +34,7 @@ const App = () => {
           options={{ clientSecret, appearance: { theme: 'stripe' } }}
           stripe={stripePromise}
         >
+          <NavBar />
           <Form setImgCount={setImgCount} />
           <br />
           <PhotoWall />

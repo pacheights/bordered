@@ -1,14 +1,15 @@
 import { PaymentElement } from '@stripe/react-stripe-js';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import { Photo, StateSelector, Title, Image } from '.';
+import { getFormDataValues } from '../utils';
 
 interface FormViewProps {
   onPhotoUpload: (e: any, i: number) => void;
   addPhoto: () => void;
   imgs: Image[];
   deletePhoto: (i: number) => void;
-  onFormSubmit: (e: any) => void;
+  onFormSubmit: (fd: FormData) => void;
 }
 
 export function FormView({
@@ -19,89 +20,115 @@ export function FormView({
   onFormSubmit,
 }: FormViewProps): ReactElement {
   const renderAddPhotoBtn = imgs.length < 2;
-  return (
+  const [step, setStep] = useState(0);
+  const [fd] = useState(new FormData());
+
+  const formSteps = [
     <>
-      <Title />
-      <div id='form-container'>
-        <Form id='form' onSubmit={onFormSubmit}>
-          <Input
-            name='to'
-            className='input'
-            type='text'
-            placeholder='To'
-            required
-          />
-          <Input name='from' className='input' type='text' placeholder='From' />
-          <TextArea
-            name='note'
-            className='textarea'
-            placeholder='Personal note (handwritten)'
-            maxLength={100}
-            rows={3}
-          />
-          <Input
-            className='checkbox'
-            type='checkbox'
-            id='photoWallConsent'
-            name='photoWallConsent'
-            value='true'
-            defaultChecked
-          />
-          <label htmlFor='photoWallConsent'>
-            {' '}
-            Post my photo to the photo wall
-          </label>
-          <Input
-            name='address1'
-            className='input'
-            type='text'
-            placeholder='Recipient Address'
-            required
-          />
-          <Input
-            name='address2'
-            className='input'
-            type='text'
-            placeholder='Unit, Apt, Suite'
-          />
-          <Input name='city' className='input' type='text' placeholder='City' />
-          <GeoContainer>
-            <StateSelector />
-            <ZipInput
-              name='zip'
-              className='input'
-              type='text'
-              placeholder='Zip Code'
-              maxLength={5}
-              required
+      <Input name='from' className='input' type='text' placeholder='From' />
+      <TextArea
+        name='note'
+        className='textarea'
+        placeholder='Personal note (handwritten)'
+        maxLength={100}
+        rows={3}
+      />
+    </>,
+    <>
+      <Input
+        className='checkbox'
+        type='checkbox'
+        id='photoWallConsent'
+        name='photoWallConsent'
+        value='true'
+        defaultChecked
+      />
+      <label htmlFor='photoWallConsent'> Post my photo to the photo wall</label>
+    </>,
+    <>
+      <Input
+        name='to'
+        className='input'
+        type='text'
+        placeholder='To'
+        required
+      />
+
+      <Input
+        name='address1'
+        className='input'
+        type='text'
+        placeholder='Recipient Address'
+        required
+      />
+      <Input
+        name='address2'
+        className='input'
+        type='text'
+        placeholder='Unit, Apt, Suite'
+      />
+      <Input name='city' className='input' type='text' placeholder='City' />
+      <GeoContainer>
+        <StateSelector />
+        <ZipInput
+          name='zip'
+          className='input'
+          type='text'
+          placeholder='Zip Code'
+          maxLength={5}
+          required
+        />
+      </GeoContainer>
+    </>,
+    <PaymentElement id='payment-element' />,
+  ];
+
+  const handleNextButtonClick = (e: any) => {
+    e.preventDefault();
+    const nextStep = step + 1;
+    if (nextStep === formSteps.length) {
+      return onFormSubmit(fd);
+    }
+    const form = e.target.parentNode;
+    const data = getFormDataValues(new FormData(form));
+    //@ts-ignore
+    Object.keys(data).forEach((key) => fd.append(key, data[key]));
+    return setStep(nextStep);
+  };
+
+  return (
+    <div id='form-container'>
+      <Form id='form'>
+        {formSteps[step]}
+        <input
+          onClick={handleNextButtonClick}
+          className='button'
+          type='submit'
+          value='Submit input'
+        />
+      </Form>
+
+      <Photos className='photos-container'>
+        {imgs.map((img, i) => (
+          <div className='photo-container' key={i}>
+            <Photo
+              img={img}
+              onPhotoUpload={(e) => onPhotoUpload(e, i)}
+              i={i}
+              onClickX={deletePhoto}
             />
-          </GeoContainer>
-          <PaymentElement id='payment-element' />
-          <input className='button' type='submit' value='Submit input' />
-        </Form>
+          </div>
+        ))}
 
-        <Photos className='photos-container'>
-          {imgs.map((img, i) => (
-            <div className='photo-container' key={i}>
-              <Photo
-                img={img}
-                onPhotoUpload={(e) => onPhotoUpload(e, i)}
-                i={i}
-                onClickX={deletePhoto}
-              />
-            </div>
-          ))}
-
-          {renderAddPhotoBtn && (
-            <button className='button  add-photo-btn' onClick={addPhoto}>
-              <span className='icon is-small'>
-                <i className='fas fa-plus'></i>
-              </span>
-            </button>
-          )}
-        </Photos>
-      </div>
-    </>
+        {renderAddPhotoBtn && (
+          <button className='button  add-photo-btn' onClick={addPhoto}>
+            <span className='icon is-small'>
+              <i className='fas fa-plus'></i>
+            </span>
+          </button>
+        )}
+      </Photos>
+    </div>
   );
 }
 

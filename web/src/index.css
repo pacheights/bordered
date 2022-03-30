@@ -7,11 +7,12 @@ body {
 
 #form-container {
   display: flex;
+  justify-content: center;
   margin-top: 32px;
 }
 
 #form {
-  max-width: 40%;
+  width: 420px;
 }
 
 .label {
@@ -35,6 +36,7 @@ body {
 @media (max-width: 760px) {
   #form-container {
     flex-direction: column;
+    align-items: center;
   }
 
   .photos-container {
@@ -57,14 +59,7 @@ body {
   }
 
   #form {
-    max-width: 3.4in;
     order: 3;
-  }
-}
-
-@media (max-width: 420px) {
-  #form-container {
-    align-items: center;
   }
 }
 
