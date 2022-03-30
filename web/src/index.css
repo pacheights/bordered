@@ -66,10 +66,6 @@ body {
   #form-container {
     align-items: center;
   }
-
-  .picture {
-    filter: saturate(70%) contrast(120%) sepia(5%) brightness(110%) !important;
-  }
 }
 
 /* Date picker (deprecated for now)  */

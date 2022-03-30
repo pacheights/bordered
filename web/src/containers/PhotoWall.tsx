@@ -38,7 +38,7 @@ export const PhotoWall = () => {
 const PhotoWallContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  div {
+  .photo {
     margin-right: 12px;
     margin-bottom: 12px;
   }

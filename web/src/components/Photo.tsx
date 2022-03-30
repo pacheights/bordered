@@ -24,7 +24,7 @@ export function Photo({
   };
 
   return (
-    <Container i={i || 0}>
+    <Container i={i || 0} className='photo'>
       <PhotoContainer>
         <Picture className='picture' img={img}>
           {onPhotoUpload && (
@@ -86,14 +86,14 @@ const Picture = styled.div<PictureStyleProps>`
   justify-content: center;
   align-items: center;
   background-image: url('${(props) => props.img || ''}');
-  background-color: ${(props) => (props.img ? '#333333' : '#c5c5c5')};
+  background-color: ${(props) => (props.img ? '#271A2C' : '#c5c5c5')};
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-blend-mode: ${(props) => (props.img ? 'lighten' : 'none')};
+  background-blend-mode: ${(props) => (props.img ? 'exclusion' : 'none')};
   filter: ${(props) =>
     props.img
-      ? 'saturate(70%) contrast(120%) blur(0.35px) sepia(5%) brightness(110%)'
+      ? 'saturate(75%) contrast(120%) sepia(5%)  brightness(110%)'
       : 'none'};
 `;
 
