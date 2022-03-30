@@ -6,7 +6,7 @@ export const NavBar = () => {
     <NavBarContainer>
       <Logo />
       <p className='subtitle'>
-        Real instant prints. Printed with chemicals and everything.
+        Real instant film. Printed with chemicals and everything.
       </p>
     </NavBarContainer>
   );

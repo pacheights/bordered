@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 
 export function Logo() {
-  const Icon = (
-    <PhotoContainer>
-      <Picture />
-    </PhotoContainer>
-  );
-
   const Title = (
     <TitleContainer>
       <C8>Bordered</C8>
@@ -16,7 +10,7 @@ export function Logo() {
   return (
     <LogoContainer>
       {Title}
-      {Icon}
+      <Icon />
     </LogoContainer>
   );
 }
@@ -40,10 +34,10 @@ const C8 = styled.span`
   color: rgb(255, 56, 93);
 `;
 
-const PhotoContainer = styled.div`
-  height: 0.39in;
-  width: 0.34in;
-  padding-top: 0.04in;
+const PhotoContainer = styled.div<{ scale: number }>`
+  height: ${(props) => props.scale * 0.39}in;
+  width: ${(props) => props.scale * 0.34}in;
+  padding-top: ${(props) => props.scale * 0.04}in;
   border-radius: 2px;
   display: flex;
   justify-content: center;
@@ -51,11 +45,20 @@ const PhotoContainer = styled.div`
   border: 1px solid lightgray;
 `;
 
-const Picture = styled.div`
-  height: 0.24in;
-  width: 0.24in;
+const Picture = styled.div<{ scale: number }>`
+  height: ${(props) => props.scale * 0.24}in;
+  width: ${(props) => props.scale * 0.24}in;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #271a2c;
 `;
+
+interface IconProps {
+  scale?: number;
+}
+export const Icon = ({ scale = 1 }: IconProps) => (
+  <PhotoContainer className='photo-icon' scale={scale}>
+    <Picture scale={scale} />
+  </PhotoContainer>
+);

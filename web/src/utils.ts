@@ -52,3 +52,8 @@ export const setBody = (body: string) => {
 export const deleteBody = () => {
   window.sessionStorage.removeItem(BODY_KEY);
 };
+
+export const PRICES: { [key: number]: string } = {
+  1: '$4.00',
+  2: '$6.00',
+};

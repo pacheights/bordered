@@ -4,3 +4,4 @@ export * from './Logo';
 export * from './StateSelector';
 export * from './FormView';
 export * from './NavBar';
+export * from './Pricing';

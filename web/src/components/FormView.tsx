@@ -1,8 +1,8 @@
 import { PaymentElement } from '@stripe/react-stripe-js';
 import { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import { Photo, StateSelector, Image } from '.';
-import { getFormDataValues } from '../utils';
+import { Photo, StateSelector, Image, Pricing } from '.';
+import { getFormDataValues, PRICES } from '../utils';
 
 interface FormViewProps {
   onPhotoUpload: (e: any, i: number) => void;
@@ -19,33 +19,13 @@ export function FormView({
   deletePhoto,
   onFormSubmit,
 }: FormViewProps): ReactElement {
-  const renderAddPhotoBtn = imgs.length < 2;
+  const numPhotos = imgs.length;
+  const renderAddPhotoBtn = numPhotos < 2;
   const [step, setStep] = useState(0);
   const [fd] = useState(new FormData());
 
   const formSteps = [
-    <>
-      <Input name='from' className='input' type='text' placeholder='From' />
-      <TextArea
-        name='note'
-        className='textarea'
-        placeholder='Personal note (handwritten)'
-        maxLength={100}
-        rows={3}
-      />
-    </>,
-    <>
-      <Input
-        className='checkbox'
-        type='checkbox'
-        id='photoWallConsent'
-        name='photoWallConsent'
-        value='true'
-        defaultChecked
-      />
-      <label htmlFor='photoWallConsent'> Post my photo to the photo wall</label>
-      <br />
-    </>,
+    <Pricing />,
     <>
       <Input
         name='to'
@@ -83,16 +63,47 @@ export function FormView({
       </GeoContainer>
     </>,
     <>
+      <Input name='from' className='input' type='text' placeholder='From' />
+      <TextArea
+        name='note'
+        className='textarea'
+        placeholder='Personal note (handwritten)'
+        maxLength={100}
+        rows={3}
+      />
+    </>,
+    <>
+      <Input
+        className='checkbox'
+        type='checkbox'
+        id='photoWallConsent'
+        name='photoWallConsent'
+        value='true'
+        defaultChecked
+      />
+      <label htmlFor='photoWallConsent'> Post my photo to the photo wall</label>
+      <br />
+    </>,
+    <>
       <PaymentElement id='payment-element' />
       <br />
     </>,
   ];
 
   const formTitles = [
+    'Instant film prints',
+    'Who to send to?',
     "Who's this from?",
     'Show on photo wall?',
-    'Where to send?',
     'Payment details',
+  ];
+
+  const buttonText = [
+    'Start Printing',
+    'Continue',
+    'Continue',
+    'Continue',
+    `Pay ${PRICES[numPhotos]}`,
   ];
 
   const handleNextButtonClick = (e: any) => {
@@ -116,9 +127,9 @@ export function FormView({
           {formSteps[step]}
           <input
             onClick={handleNextButtonClick}
-            className='button'
+            className='button is-danger'
             type='submit'
-            value='Submit input'
+            value={buttonText[step]}
           />
         </Form>
       </div>
@@ -136,7 +147,7 @@ export function FormView({
         ))}
 
         {renderAddPhotoBtn && (
-          <button className='button  add-photo-btn' onClick={addPhoto}>
+          <button className='button add-photo-btn' onClick={addPhoto}>
             <span className='icon is-small'>
               <i className='fas fa-plus'></i>
             </span>
@@ -162,7 +173,6 @@ const Photos = styled.div`
   width: fit-content;
   display: flex;
   align-items: center;
-  margin-bottom: 24px;
 `;
 
 const Form = styled.form`

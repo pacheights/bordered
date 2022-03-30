@@ -8,10 +8,14 @@ body {
 #form-container {
   display: flex;
   justify-content: center;
+  margin: 0 -10%;
+  padding: 36px 0;
+  background-color: #f5f5f5;
 }
 
 #form {
-  width: 420px;
+  max-width: 420px;
+  width: 80%;
 }
 
 .label {
@@ -32,7 +36,7 @@ body {
   color: #363636;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   #form-container {
     flex-direction: column;
     align-items: center;
@@ -41,6 +45,7 @@ body {
   .photos-container {
     flex-direction: column;
     align-items: flex-start !important;
+    margin-bottom: 24px;
   }
 
   .photo-container {
@@ -60,28 +65,4 @@ body {
   #form {
     order: 3;
   }
-}
-
-/* Date picker (deprecated for now)  */
-input[type='date']::-webkit-calendar-picker-indicator {
-  background: transparent;
-  bottom: 0;
-  color: transparent;
-  cursor: pointer;
-  height: auto;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: auto;
-}
-
-input[type='date']:before {
-  content: attr(placeholder) !important;
-  color: #aaa;
-  margin-right: 0.5em;
-}
-input[type='date']:focus:before,
-input[type='date']:valid:before {
-  content: '';
 }
