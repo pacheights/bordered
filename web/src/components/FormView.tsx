@@ -1,7 +1,7 @@
 import { PaymentElement } from '@stripe/react-stripe-js';
 import { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import { Photo, StateSelector, Title, Image } from '.';
+import { Photo, StateSelector, Image } from '.';
 import { getFormDataValues } from '../utils';
 
 interface FormViewProps {
@@ -44,6 +44,7 @@ export function FormView({
         defaultChecked
       />
       <label htmlFor='photoWallConsent'> Post my photo to the photo wall</label>
+      <br />
     </>,
     <>
       <Input
@@ -51,6 +52,7 @@ export function FormView({
         className='input'
         type='text'
         placeholder='To'
+        defaultValue=''
         required
       />
 
@@ -80,16 +82,26 @@ export function FormView({
         />
       </GeoContainer>
     </>,
-    <PaymentElement id='payment-element' />,
+    <>
+      <PaymentElement id='payment-element' />
+      <br />
+    </>,
+  ];
+
+  const formTitles = [
+    "Who's this from?",
+    'Show on photo wall?',
+    'Where to send?',
+    'Payment details',
   ];
 
   const handleNextButtonClick = (e: any) => {
     e.preventDefault();
+    const form = e.target.parentNode as HTMLFormElement;
     const nextStep = step + 1;
     if (nextStep === formSteps.length) {
       return onFormSubmit(fd);
     }
-    const form = e.target.parentNode;
     const data = getFormDataValues(new FormData(form));
     //@ts-ignore
     Object.keys(data).forEach((key) => fd.append(key, data[key]));
@@ -98,15 +110,18 @@ export function FormView({
 
   return (
     <div id='form-container'>
-      <Form id='form'>
-        {formSteps[step]}
-        <input
-          onClick={handleNextButtonClick}
-          className='button'
-          type='submit'
-          value='Submit input'
-        />
-      </Form>
+      <div id='form'>
+        <h3 className='title is-3'>{formTitles[step]}</h3>
+        <Form>
+          {formSteps[step]}
+          <input
+            onClick={handleNextButtonClick}
+            className='button'
+            type='submit'
+            value='Submit input'
+          />
+        </Form>
+      </div>
 
       <Photos className='photos-container'>
         {imgs.map((img, i) => (
