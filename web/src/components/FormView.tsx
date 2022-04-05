@@ -63,7 +63,7 @@ export function FormView({
         />
       </GeoContainer>
     </>,
-    <>
+    <div>
       <Input
         name='from'
         className='input'
@@ -78,7 +78,7 @@ export function FormView({
         maxLength={100}
         rows={3}
       />
-    </>,
+    </div>,
     <>
       <Input
         className='checkbox'
