@@ -3,6 +3,7 @@ export interface BaseOrder {
   from: string;
   note: string;
   photoWallConsent: string;
+  photoInfoConsent: string;
   address1: string;
   address2: string;
   city: string;
@@ -18,4 +19,13 @@ export interface OrderRequest extends BaseOrder {
 
 export interface OrderDbEntry extends OrderRequest {
   timestamp: string;
+}
+
+export interface Photo {
+  img1: string;
+  img2?: string;
+  timestamp: string;
+  photoInfoConsent: string;
+  to?: string;
+  from?: string;
 }

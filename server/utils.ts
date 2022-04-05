@@ -22,6 +22,7 @@ export const getSanitizedBody = (body: OrderRequest): BaseOrder => {
     from,
     note,
     photoWallConsent,
+    photoInfoConsent,
     address1,
     address2,
     city,
@@ -34,6 +35,7 @@ export const getSanitizedBody = (body: OrderRequest): BaseOrder => {
   from = sanitizer.sanitize.keepSpace(from);
   note = sanitizer.sanitize.keepSpace(note);
   photoWallConsent = sanitizer.sanitize.keepSpace(photoWallConsent);
+  photoInfoConsent = sanitizer.sanitize.keepSpace(photoInfoConsent);
   address1 = sanitizer.sanitize.keepSpace(address1);
   address2 = sanitizer.sanitize.keepSpace(address2);
   city = sanitizer.sanitize.keepSpace(city);
@@ -46,6 +48,7 @@ export const getSanitizedBody = (body: OrderRequest): BaseOrder => {
     from,
     note,
     photoWallConsent,
+    photoInfoConsent,
     address1,
     address2,
     city,

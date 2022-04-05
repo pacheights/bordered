@@ -63,7 +63,13 @@ export function FormView({
       </GeoContainer>
     </>,
     <>
-      <Input name='from' className='input' type='text' placeholder='From' />
+      <Input
+        name='from'
+        className='input'
+        type='text'
+        placeholder='From'
+        defaultValue=''
+      />
       <TextArea
         name='note'
         className='textarea'
@@ -82,6 +88,19 @@ export function FormView({
         defaultChecked
       />
       <label htmlFor='photoWallConsent'> Post my photo to the photo wall</label>
+      <br />
+      <Input
+        className='checkbox'
+        type='checkbox'
+        id='photoInfoConsent'
+        name='photoInfoConsent'
+        value='true'
+        defaultChecked
+      />
+      <label htmlFor='photoInfoConsent'>
+        {' '}
+        Show who it's to and who it's from
+      </label>
       <br />
     </>,
     <>

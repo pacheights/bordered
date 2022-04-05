@@ -7,6 +7,9 @@ interface Props {
   img: Image;
   i?: number;
   onClickX?: (i: number) => void;
+  to?: string;
+  from?: string;
+  timestamp?: string;
 }
 
 export function Photo({
@@ -14,6 +17,9 @@ export function Photo({
   onPhotoUpload,
   i,
   onClickX,
+  timestamp,
+  to,
+  from,
 }: Props): ReactElement {
   const renderXbutton = i ? i > 0 : false;
 
@@ -47,6 +53,21 @@ export function Photo({
             </UploadContainer>
           )}
         </Picture>
+        {to && (
+          <Meta>
+            <div>
+              <p>
+                <em>To:</em> {to}
+              </p>
+              <p>
+                <em>From:</em> {from}
+              </p>
+            </div>
+            <div>
+              <p>{formatDate(timestamp as string)}</p>
+            </div>
+          </Meta>
+        )}
       </PhotoContainer>
       {renderXbutton && (
         <XButton className='delete' onClick={handleDelete}></XButton>
@@ -54,6 +75,14 @@ export function Photo({
     </Container>
   );
 }
+
+const formatDate = (timestamp: string) => {
+  const date = new Date(timestamp);
+  var day = date.getDate();
+  var month = date.getMonth() + 1; //Months are zero based
+  var year = date.getFullYear();
+  return `${month}/${day}/${year}`;
+};
 
 type PictureStyleProps = {
   img: Image;
@@ -74,7 +103,8 @@ const PhotoContainer = styled.div`
   padding-top: 0.28in;
   border-radius: 5px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid lightgray;
 `;
@@ -112,4 +142,12 @@ const Input = styled.input`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const Meta = styled.div`
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  width: 2.95in;
+  margin-top: 4px;
 `;

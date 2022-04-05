@@ -24,14 +24,14 @@ export const PhotoWall = () => {
   }, []);
 
   return (
-    <>
+    <div>
       <h3 className='title is-3'>Photo Wall</h3>
       <PhotoWallContainer className='photo-wall'>
         {photos.map((photo) => (
-          <Photo img={photo.img1} />
+          <Photo {...photo} img={photo.img1} />
         ))}
       </PhotoWallContainer>
-    </>
+    </div>
   );
 };
 
