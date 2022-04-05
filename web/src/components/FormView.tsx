@@ -23,6 +23,7 @@ export function FormView({
   const renderAddPhotoBtn = numPhotos < 2;
   const [step, setStep] = useState(0);
   const [fd] = useState(new FormData());
+  const [missingTo, setMissingTo] = useState(false);
 
   const formSteps = [
     <Pricing />,
@@ -109,6 +110,8 @@ export function FormView({
     </>,
   ];
 
+  const lastStep = step + 1 === formSteps.length;
+
   const formTitles = [
     'Instant film prints',
     'Who to send to?',
@@ -125,14 +128,41 @@ export function FormView({
     `Pay ${PRICES[numPhotos]}`,
   ];
 
+  const validate = (data: any) => {
+    const nextStep = step + 1;
+    const lastStep = nextStep === formSteps.length;
+    if (lastStep && !imgs[0]) {
+      return false;
+    }
+
+    if (lastStep && imgs.length === 2 && !imgs[1]) {
+      return false;
+    }
+
+    if (step == 1) {
+      setMissingTo(true);
+      const valid = !!data.to && !!data.address1 && !!data.zip;
+      setMissingTo(!valid);
+      return valid;
+    }
+
+    return true;
+  };
+
   const handleNextButtonClick = (e: any) => {
     e.preventDefault();
+
     const form = e.target.parentNode as HTMLFormElement;
     const nextStep = step + 1;
-    if (nextStep === formSteps.length) {
+    const data = getFormDataValues(new FormData(form));
+
+    const valid = validate(data);
+    if (!valid) return;
+
+    if (lastStep) {
       return onFormSubmit(fd);
     }
-    const data = getFormDataValues(new FormData(form));
+
     //@ts-ignore
     Object.keys(data).forEach((key) => fd.append(key, data[key]));
     return setStep(nextStep);
@@ -151,6 +181,7 @@ export function FormView({
             value={buttonText[step]}
           />
         </Form>
+        {missingTo && <ErrorText>Missing recipient info</ErrorText>}
       </div>
 
       <Photos className='photos-container'>
@@ -162,6 +193,9 @@ export function FormView({
               i={i}
               onClickX={deletePhoto}
             />
+            {lastStep && !imgs[i] && (
+              <ErrorText>Please upload a photo</ErrorText>
+            )}
           </div>
         ))}
 
@@ -206,4 +240,8 @@ const ZipInput = styled.input`
   ${InputStyling};
   width: 100px;
   margin-left: 12px;
+`;
+
+const ErrorText = styled.p`
+  color: rgb(255, 56, 93);
 `;
