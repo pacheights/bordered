@@ -1,11 +1,12 @@
+import { Form } from './components';
 import styled from 'styled-components';
 import { loadStripe } from '@stripe/stripe-js';
 import { useState, useEffect } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
-import { NavBar, Form } from '../src/components';
-import { PhotoWall } from '../src/containers/PhotoWall';
-import { endpoint } from '../src/endpoint';
-import { pk } from '../src/stripe';
+import { pk } from './stripe';
+import { endpoint } from './endpoint';
+import { PhotoWall } from './containers/PhotoWall';
+import { NavBar } from './components/NavBar';
 
 const stripePromise = loadStripe(pk);
 

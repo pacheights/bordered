@@ -1,7 +1,7 @@
 import { PaymentElement } from '@stripe/react-stripe-js';
 import { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import { Photo, StateSelector, Image, Pricing } from '../components';
+import { Photo, StateSelector, Image, Pricing } from '.';
 import { getFormDataValues, PRICES } from '../utils';
 
 interface FormViewProps {

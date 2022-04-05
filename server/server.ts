@@ -75,7 +75,7 @@ app.use((req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '../web', 'build', 'index.html'));
 });
 
-// start express server on port 443
-app.listen(443, () => {
-  console.log('server started on port 443');
+// start express server on port 3000
+app.listen(3000, () => {
+  console.log('server started on port 3000');
 });
