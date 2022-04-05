@@ -37,7 +37,16 @@ body {
 }
 
 @media (max-width: 900px) {
-  #form-container {
+  .nav-bar-container {
+    flex-direction: column;
+  }
+
+  .nav {
+    margin-top: 12px;
+  }
+
+  #form-container,
+  .about {
     flex-direction: column;
     align-items: center;
   }
@@ -53,7 +62,8 @@ body {
     order: 1;
   }
 
-  .photo-container:nth-child(1) {
+  .photo-container:nth-child(1),
+  .about .photo {
     margin-bottom: 16px;
   }
 
@@ -64,5 +74,11 @@ body {
 
   #form {
     order: 3;
+  }
+
+  @media (max-width: 550px) {
+    .nav {
+      width: 100%;
+    }
   }
 }

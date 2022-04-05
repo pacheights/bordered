@@ -7,6 +7,8 @@ import { pk } from './stripe';
 import { endpoint } from './endpoint';
 import { PhotoWall } from './containers/PhotoWall';
 import { NavBar } from './components/NavBar';
+import { Routes, Route } from 'react-router';
+import { About } from './containers/About/About';
 
 const stripePromise = loadStripe(pk);
 
@@ -37,7 +39,11 @@ const App = () => {
           <NavBar />
           <Form setImgCount={setImgCount} />
           <br />
-          <PhotoWall />
+
+          <Routes>
+            <Route path='/' element={<PhotoWall />} />
+            <Route path='about' element={<About />} />
+          </Routes>
           <br />
         </Elements>
       )}
