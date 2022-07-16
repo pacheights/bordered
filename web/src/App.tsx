@@ -9,6 +9,7 @@ import { PhotoWall } from './containers/PhotoWall';
 import { NavBar } from './components/NavBar';
 import { Routes, Route } from 'react-router';
 import { About } from './containers/About/About';
+import { Feedback } from './containers/Feedback';
 
 const stripePromise = loadStripe(pk);
 
@@ -43,6 +44,7 @@ const App = () => {
           <Routes>
             <Route path='/' element={<PhotoWall />} />
             <Route path='about' element={<About />} />
+            <Route path='feedback' element={<Feedback />} />
           </Routes>
           <br />
         </Elements>

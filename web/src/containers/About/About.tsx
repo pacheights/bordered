@@ -10,15 +10,12 @@ export const About = () => {
         <Photo img={photo} />
         <div>
           <p className='subtitle'>
-            Bordered was created by Pearson Buck (@pbuqq) to bring our photos to
-            life. They make great gifts too.
+            Bordered was created to bring digital photos to life. They make
+            great gifts too.
           </p>
-
           <p>
-            We take so many photos with our phones that just sit in our camera
-            rolls and are only looked through when we don't have service.
-            Collectively, we've gotten so much better at taking photos of the
-            world and the people around us.
+            We take so many photos with our phones and we don't look at them
+            until we don't have service.
           </p>
           <br />
           <p>
@@ -30,12 +27,13 @@ export const About = () => {
           <br />
           <p>
             If the revival of vinyl records says anything, then it seems we'd
-            also cherish tangible representations of our photos too.
+            also cherish physical copies of our photos too.
           </p>
           <br />
           <p>
-            Pearson is a software engineer based in California. If you ever see
-            him, ask for a photo and he'll print one for you on the house.
+            Bordered was created by Pearson Buck, a software engineer based in
+            California. Reach out to him to build apps for you (he's very
+            talented).
           </p>
         </div>
       </FlexContainer>

@@ -46,7 +46,8 @@ body {
   }
 
   #form-container,
-  .about {
+  .about,
+  .photo-wall {
     flex-direction: column;
     align-items: center;
   }

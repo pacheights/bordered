@@ -24,7 +24,7 @@ export const PhotoWall = () => {
   }, []);
 
   return (
-    <div>
+    <div className='photo-wall'>
       <h3 className='title is-3'>Photo Wall</h3>
       <PhotoWallContainer className='photo-wall'>
         {photos.map((photo) => (

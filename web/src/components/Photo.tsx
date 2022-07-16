@@ -123,7 +123,7 @@ const Picture = styled.div<PictureStyleProps>`
   background-blend-mode: ${(props) => (props.img ? 'exclusion' : 'none')};
   filter: ${(props) =>
     props.img
-      ? 'saturate(75%) contrast(120%) sepia(5%)  brightness(110%)'
+      ? 'saturate(80%) contrast(100%) sepia(5%) brightness(110%)'
       : 'none'};
 `;
 
