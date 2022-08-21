@@ -53,7 +53,7 @@ app.post('/create-payment-intent', async (req: Request, res: Response) => {
   try {
     const { imgCount } = req.body;
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: imgCount >= 2 ? 700 : 500,
+      amount: imgCount * 250,
       currency: 'usd',
       payment_method_types: ['card'],
     });

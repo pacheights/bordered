@@ -54,6 +54,6 @@ export const deleteBody = () => {
 };
 
 export const PRICES: { [key: number]: string } = {
-  1: '$4.00',
-  2: '$6.00',
+  1: '$2.50',
+  2: '$5.00',
 };

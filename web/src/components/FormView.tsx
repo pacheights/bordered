@@ -29,58 +29,6 @@ export function FormView({
     <Pricing />,
     <>
       <Input
-        name='to'
-        className='input'
-        type='text'
-        placeholder='To'
-        defaultValue=''
-        required
-      />
-
-      <Input
-        name='address1'
-        className='input'
-        type='text'
-        placeholder='Recipient Address'
-        required
-      />
-      <Input
-        name='address2'
-        className='input'
-        type='text'
-        placeholder='Unit, Apt, Suite'
-      />
-      <Input name='city' className='input' type='text' placeholder='City' />
-      <GeoContainer>
-        <StateSelector />
-        <ZipInput
-          name='zip'
-          className='input'
-          type='text'
-          placeholder='Zip Code'
-          maxLength={5}
-          required
-        />
-      </GeoContainer>
-    </>,
-    <div>
-      <Input
-        name='from'
-        className='input'
-        type='text'
-        placeholder='From'
-        defaultValue=''
-      />
-      <TextArea
-        name='note'
-        className='textarea'
-        placeholder='Personal note (handwritten)'
-        maxLength={100}
-        rows={3}
-      />
-    </div>,
-    <>
-      <Input
         className='checkbox'
         type='checkbox'
         id='photoWallConsent'
@@ -88,7 +36,10 @@ export function FormView({
         value='true'
         defaultChecked
       />
-      <label htmlFor='photoWallConsent'> Post my photo to the photo wall</label>
+      <label htmlFor='photoWallConsent'>
+        {' '}
+        Post my photo(s) to the photo wall
+      </label>
       <br />
       <Input
         className='checkbox'
@@ -105,6 +56,51 @@ export function FormView({
       <br />
     </>,
     <>
+      <Input
+        name='to'
+        className='input'
+        type='text'
+        placeholder='To'
+        defaultValue=''
+        required
+      />
+
+      <Input
+        name='address1'
+        className='input'
+        type='text'
+        placeholder='Recipient Address'
+        defaultValue=''
+        required
+      />
+      <Input
+        name='address2'
+        className='input'
+        type='text'
+        placeholder='Unit, Apt, Suite'
+        defaultValue=''
+      />
+      <Input
+        name='city'
+        className='input'
+        type='text'
+        placeholder='City'
+        defaultValue=''
+      />
+      <GeoContainer>
+        <StateSelector />
+        <ZipInput
+          name='zip'
+          className='input'
+          type='text'
+          placeholder='Zip Code'
+          defaultValue=''
+          maxLength={5}
+          required
+        />
+      </GeoContainer>
+    </>,
+    <>
       <PaymentElement id='payment-element' />
       <br />
     </>,
@@ -114,9 +110,8 @@ export function FormView({
 
   const formTitles = [
     'Instant film prints',
-    'Who to send to?',
-    "Who's this from?",
     'Show on photo wall?',
+    'Who to send to?',
     'Payment details',
   ];
 
@@ -139,7 +134,7 @@ export function FormView({
       return false;
     }
 
-    if (step == 1) {
+    if (step == 2) {
       setMissingTo(true);
       const valid = !!data.to && !!data.address1 && !!data.zip;
       setMissingTo(!valid);

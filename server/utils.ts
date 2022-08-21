@@ -31,16 +31,20 @@ export const getSanitizedBody = (body: OrderRequest): BaseOrder => {
     pi,
   } = body;
 
-  to = sanitizer.sanitize.keepSpace(to);
-  from = sanitizer.sanitize.keepSpace(from);
-  note = sanitizer.sanitize.keepSpace(note);
-  photoWallConsent = sanitizer.sanitize.keepSpace(photoWallConsent);
-  photoInfoConsent = sanitizer.sanitize.keepSpace(photoInfoConsent);
-  address1 = sanitizer.sanitize.keepSpace(address1);
-  address2 = sanitizer.sanitize.keepSpace(address2);
-  city = sanitizer.sanitize.keepSpace(city);
-  state = sanitizer.sanitize.keepSpace(state);
-  zip = sanitizer.sanitize.keepSpace(zip);
+  to = to && sanitizer.sanitize.keepSpace(to);
+  from = from ? sanitizer.sanitize.keepSpace(from) : '';
+  note = note ? sanitizer.sanitize.keepSpace(note) : '';
+  photoWallConsent = photoWallConsent
+    ? sanitizer.sanitize.keepSpace(photoWallConsent)
+    : 'false';
+  photoInfoConsent = photoInfoConsent
+    ? sanitizer.sanitize.keepSpace(photoInfoConsent)
+    : 'false';
+  address1 = address1 && sanitizer.sanitize.keepSpace(address1);
+  address2 = address2 && sanitizer.sanitize.keepSpace(address2);
+  city = city && sanitizer.sanitize.keepSpace(city);
+  state = state && sanitizer.sanitize.keepSpace(state);
+  zip = zip && sanitizer.sanitize.keepSpace(zip);
   pi = `pi_${sanitizer.sanitize(pi.substring(3))}`;
 
   return {

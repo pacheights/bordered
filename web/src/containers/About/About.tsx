@@ -12,28 +12,17 @@ export const About = () => {
           <p className='subtitle'>
             Bordered was created to bring digital photos to life. They make
             great gifts too.
-          </p>
+          </p>{' '}
           <p>
             We take so many photos with our phones and we don't look at them
-            until we don't have service.
-          </p>
-          <br />
-          <p>
-            I believe the best photos in the world are the self developing
-            photos made from instant film -- pioneered by Polaroid. Gone is the
-            need for a darkroom, an ink printer, a laser printer, or a 1-hour
-            photo.
-          </p>
-          <br />
-          <p>
-            If the revival of vinyl records says anything, then it seems we'd
-            also cherish physical copies of our photos too.
-          </p>
-          <br />
-          <p>
-            Bordered was created by Pearson Buck, a software engineer based in
-            California. Reach out to him to build apps for you (he's very
-            talented).
+            until we don't have service. I believe the best photos in the world
+            are the self developing photos made from instant film -- pioneered
+            by Polaroid. Gone is the need for a darkroom, an ink printer, a
+            laser printer, or a 1-hour. If the revival of vinyl records says
+            anything, then it seems we'd also cherish physical copies of our
+            photos too. photo. Bordered was created by Pearson Buck, a software
+            engineer based in California. Reach out to him to build apps for you
+            (he's very talented).
           </p>
         </div>
       </FlexContainer>

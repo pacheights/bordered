@@ -28,7 +28,13 @@ const App = () => {
 
   useEffect(() => {
     createPaymentIntent();
-  }, [imgCount]);
+  }, []);
+
+  // useEffect(() => {
+  //   await stripe.paymentIntents.update(**paymentIntentId**, {
+  //     amount,
+  //   });
+  // })
 
   return (
     <Container className='App'>
